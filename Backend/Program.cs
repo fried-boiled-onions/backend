@@ -48,8 +48,21 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5171")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 builder.Services.AddAuthorization();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<UserService>();
@@ -73,9 +86,11 @@ app.Use(async (context, next) =>
 
 app.UseRouting();
 
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<Backend.Hubs.ChatHub>("/chat");
 
 using (var scope = app.Services.CreateScope())
 {
