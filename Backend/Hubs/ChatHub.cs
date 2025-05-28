@@ -15,24 +15,35 @@ public class ChatHub : Hub
     }
     public async Task SendMessage(MessageRequestDto message)
     {
-        var senderId = int.Parse(Context.UserIdentifier!);
-
-        var msg = new Message
+        try
         {
-            SenderId = senderId,
-            ReceiverId = message.ReceiverId,
-            Content = message.Content,
-            SentAt = DateTime.UtcNow,
-            IsRead = false
-        };
+            var senderId = int.Parse(Context.UserIdentifier!);
+            Console.WriteLine($"User {senderId} is sending to {message.ReceiverId}");
 
-        _dbContext.Messages.Add(msg);
-        await _dbContext.SaveChangesAsync();
+            var msg = new Message
+            {
+                SenderId = senderId,
+                ReceiverId = message.ReceiverId,
+                Content = message.Content,
+                SentAt = DateTime.UtcNow,
+                IsRead = false
+            };
 
-        var response = new MessageResponseDto(senderId, message.ReceiverId, message.Content, msg.SentAt);
+            _dbContext.Messages.Add(msg);
+            await _dbContext.SaveChangesAsync();
+            Console.WriteLine($"Message Saved");
 
-        await Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", response);
-        await Clients.Caller.SendAsync("ReceiveMessage", response);
+            var response = new MessageResponseDto(senderId, message.ReceiverId, message.Content, msg.SentAt);
+
+            await Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", response);
+            Console.WriteLine($"Message sent");
+            await Clients.Caller.SendAsync("ReceiveMessage", response);
+            Console.WriteLine($"Message sended back");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: Sender: {SenderId}, Receiver: {ReceiverId}, ErrorText: {ex.Message}")
+        }
     }
 
     public override async Task OnConnectedAsync()
