@@ -1,12 +1,38 @@
 using Microsoft.AspNetCore.SignalR;
+using Backend.Models.Dtos;
+using Backend.Data;
+using Backend.Models;
 
 namespace Backend.Hubs;
 
 public class ChatHub : Hub
 {
-    public async Task SendMessage(string userId, string message)
+    private readonly AppDbContext _dbContext;
+
+    public ChatHub(AppDbContext dbContext)
     {
-        await Clients.User(userId).SendAsync("ReceiveMessage", Context.UserIdentifier, message);
+        _dbContext = dbContext;
+    }
+    public async Task SendMessage(MessageRequestDto message)
+    {
+        var senderId = int.Parse(Context.UserIdentifier!);
+
+        var msg = new Message
+        {
+            SenderId = senderId,
+            ReceiverId = message.ReceiverId,
+            Content = message.Content,
+            SentAt = DateTime.UtcNow,
+            IsRead = false
+        };
+
+        _dbContext.Messages.Add(msg);
+        await _dbContext.SaveChangesAsync();
+
+        var response = new MessageResponseDto(senderId, message.ReceiverId, message.Content, msg.SentAt);
+
+        await Clients.User(message.ReceiverId.ToString()).SendAsync("ReceiveMessage", response);
+        await Clients.Caller.SendAsync("ReceiveMessage", response);
     }
 
     public override async Task OnConnectedAsync()
