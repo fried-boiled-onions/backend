@@ -42,7 +42,9 @@ public class ChatHub : Hub
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: Sender: {SenderId}, Receiver: {ReceiverId}, ErrorText: {ex.Message}")
+            var senderId = Context.UserIdentifier ?? "unknown sender";
+            var receiverId = message?.ReceiverId.ToString() ?? "unknown receiver";
+            Console.WriteLine($"Error: Sender: {senderId}, Receiver: {receiverId}, ErrorText: {ex.Message}");
         }
     }
 
