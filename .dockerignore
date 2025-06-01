@@ -1,0 +1,10 @@
+bin/
+obj/
+
+*.user
+*.suo
+.vscode/
+.pdb
+
+.idea/
+*.log
