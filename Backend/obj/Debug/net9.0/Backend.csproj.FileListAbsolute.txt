@@ -135,3 +135,5 @@
 /Users/stxreocoma/Dev/backend/Backend/obj/Debug/net9.0/Backend.pdb
 /Users/stxreocoma/Dev/backend/Backend/obj/Debug/net9.0/Backend.genruntimeconfig.cache
 /Users/stxreocoma/Dev/backend/Backend/obj/Debug/net9.0/ref/Backend.dll
+/Users/stxreocoma/Dev/backend/Backend/bin/Debug/net9.0/Newtonsoft.Json.dll
+/Users/stxreocoma/Dev/backend/Backend/bin/Debug/net9.0/System.Net.WebSockets.WebSocketProtocol.dll
