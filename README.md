@@ -1,127 +1,199 @@
-Мессенджер API (Onion Architecture)
+# Мессенджер API (Onion Architecture)
+
 Этот проект — бэкенд RESTful API для мессенджера, разработанный на ASP.NET Core с использованием Onion Architecture. Он предоставляет функционал для регистрации и авторизации пользователей, управления сообщениями и чата в реальном времени через SignalR. Проект использует Entity Framework Core для работы с PostgreSQL и JWT для авторизации.
-Содержание
 
-Возможности
-Технологии
-Установка
-Запуск с Docker
-Использование
-Структура проекта
-Контрибьютинг
-Лицензия
+## Содержание
 
-Возможности
+* Возможности
+* Технологии
+* Установка
+* Запуск с Docker
+* Использование
+* Структура проекта
+* Контрибьютинг
+* Лицензия
 
-REST API для регистрации, авторизации и управления пользователями.
-CRUD-операции для сообщений между пользователями.
-Чат в реальном времени через SignalR (/chat хаб).
-JWT-авторизация для защиты эндпоинтов.
-Интеграция с PostgreSQL через Entity Framework Core.
-Поддержка миграций базы данных.
-Интерактивная документация API через Swagger UI.
-Контейнеризация с Docker и Docker Compose.
+## Возможности
 
-Технологии
+* REST API для регистрации, авторизации и управления пользователями.
+* CRUD-операции для сообщений между пользователями.
+* Чат в реальном времени через SignalR (/chat хаб).
+* JWT-авторизация для защиты эндпоинтов.
+* Интеграция с PostgreSQL через Entity Framework Core.
+* Поддержка миграций базы данных.
+* Интерактивная документация API через Swagger UI.
+* Контейнеризация с Docker и Docker Compose.
 
-C# и ASP.NET Core 9.0.
-Entity Framework Core: ORM для работы с PostgreSQL.
-SignalR: Для чата в реальном времени.
-JWT: Для авторизации.
-PostgreSQL: База данных.
-Swashbuckle/Swagger: Для документации API.
-Microsoft.Extensions.DependencyInjection: Для внедрения зависимостей.
+## Технологии
 
-Установка
+* C# и ASP.NET Core 9.0.
+* Entity Framework Core: ORM для работы с PostgreSQL.
+* SignalR: Для чата в реальном времени.
+* JWT: Для авторизации.
+* PostgreSQL: База данных.
+* Swashbuckle/Swagger: Для документации API.
+* Microsoft.Extensions.DependencyInjection: Для внедрения зависимостей.
 
-Клонируйте репозиторий:
-git clone https://github.com/fried-boiled-onions/backend.git
-cd backend
-git checkout dev
-cd Backend
+## Установка
 
+1. **Клонируйте репозиторий:**
 
-Убедитесь, что установлен .NET SDK:Требуется .NET 9.0. Проверьте версию:
-dotnet --version
+   ```bash
+   git clone https://github.com/fried-boiled-onions/backend.git
+   cd backend
+   git checkout dev
+   cd Backend
+   ```
 
+2. **Убедитесь, что установлен .NET SDK:**
 
-Восстановите зависимости:Установите NuGet-пакеты:
-dotnet restore
+   * Требуется .NET 9.0. Проверьте версию:
 
+     ```bash
+     dotnet --version
+     ```
 
-Настройте PostgreSQL:Убедитесь, что PostgreSQL запущен. Настройте строку подключения в appsettings.json:
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=messenger-db;Username=postgres;Password=yourpassword"
-  }
-}
+3. **Восстановите зависимости:**
 
+   * Установите NuGet-пакеты:
 
-Примените миграции базы данных:В папке Backend выполните:
-dotnet ef database update
+     ```bash
+     dotnet restore
+     ```
 
-Это применит существующие миграции (например, 20250524211730_InitialCreate.cs).
+4. **Настройте PostgreSQL:**
 
-Запустите приложение:
-dotnet run
+   * Убедитесь, что PostgreSQL запущен. Настройте строку подключения в `appsettings.json`:
 
-API будет доступен по адресу https://localhost:5001 или http://localhost:5000 (смотрите Properties/launchSettings.json). Документация API доступна по /swagger. SignalR хаб для чата — по /chat.
+     ```json
+     {
+       "ConnectionStrings": {
+         "DefaultConnection": "Host=localhost;Database=messenger-db;Username=postgres;Password=yourpassword"
+       }
+     }
+     ```
 
+5. **Примените миграции базы данных:**
 
-Запуск с Docker
+   * В папке `Backend` выполните:
 
-Убедитесь, что Docker и Docker Compose установлены.
+     ```bash
+     dotnet ef database update
+     ```
+   * Это применит существующие миграции (например, `20250524211730_InitialCreate.cs`).
 
-Настройте docker-compose.yml (например, переменные окружения для PostgreSQL).
+6. **Запустите приложение:**
 
-Запустите приложение:
-docker-compose up --build
+   ```bash
+   dotnet run
+   ```
 
-API будет доступен по адресу, указанному в docker-compose.yml (обычно http://localhost:5000).
+   * API будет доступен по адресу `https://localhost:5001` или `http://localhost:5000` (смотрите `Properties/launchSettings.json`). Документация API доступна по `/swagger`. SignalR хаб для чата — по `/chat`.
 
+## Запуск с Docker
 
-Использование
-REST Эндпоинты
+1. **Убедитесь, что Docker и Docker Compose установлены.**
 
-Авторизация:
+2. **Настройте `docker-compose.yml`** (например, переменные окружения для PostgreSQL).
 
-POST /api/auth/register — регистрация пользователя.curl -X POST "http://localhost:5000/api/auth/register" -H "Content-Type: application/json" -d '{"username":"testuser","password":"Test123!"}'
+3. **Запустите приложение:**
 
-Ответ: { "token": "jwt-token" }
-POST /api/auth/login — вход пользователя.curl -X POST "http://localhost:5000/api/auth/login" -H "Content-Type: application/json" -d '{"username":"testuser","password":"Test123!"}'
+   ```bash
+   docker-compose up --build
+   ```
 
-Ответ: { "token": "jwt-token" }
+   * API будет доступен по адресу, указанному в `docker-compose.yml` (обычно `http://localhost:5000`).
 
+## Использование
 
-Пользователи:
+### REST Эндпоинты
 
-GET /api/users — получить список пользователей (требуется JWT).curl -X GET "http://localhost:5000/api/users" -H "Authorization: Bearer <jwt-token>"
+**Авторизация:**
 
-Ответ: [ { "id": 1, "username": "testuser" }, ... ]
+* **POST /api/auth/register** — регистрация пользователя.
 
+  ```bash
+  curl -X POST "http://localhost:5000/api/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"Test123!"}'
+  ```
 
-Сообщения:
+  * Ответ: `{ "token": "jwt-token" }`
 
-GET /api/messages/{userId} — получить сообщения с пользователем (требуется JWT).curl -X GET "http://localhost:5000/api/messages/2" -H "Authorization: Bearer <jwt-token>"
+* **POST /api/auth/login** — вход пользователя.
 
-Ответ: [ { "id": 1, "senderId": 1, "senderName": "user1", "receiverId": 2, "receiverName": "user2", "content": "Hello!", "sentAt": "2025-06-02T10:00:00", "isRead": false }, ... ]
+  ```bash
+  curl -X POST "http://localhost:5000/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"Test123!"}'
+  ```
 
+  * Ответ: `{ "token": "jwt-token" }`
 
-Документация API доступна через Swagger UI по адресу /swagger.
+**Пользователи:**
 
+* **GET /api/users** — получить список пользователей (требуется JWT).
 
-SignalR (Чат)
+  ```bash
+  curl -X GET "http://localhost:5000/api/users" \
+  -H "Authorization: Bearer <jwt-token>"
+  ```
 
-Подключитесь к хабу /chat через WebSocket (требуется JWT-токен).
-Пример подключения (JavaScript):const connection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost:5000/chat", { accessTokenFactory: () => "<jwt-token>" })
-    .build();
-connection.start().then(() => console.log("Connected to chat hub"));
-connection.on("ReceiveMessage", (message) => console.log("New message:", message));
+  * Ответ:
 
+    ```json
+    [
+      { "id": 1, "username": "testuser" },
+      ...
+    ]
+    ```
 
+**Сообщения:**
 
-Структура проекта
+* **GET /api/messages/{userId}** — получить сообщения с пользователем (требуется JWT).
+
+  ```bash
+  curl -X GET "http://localhost:5000/api/messages/2" \
+  -H "Authorization: Bearer <jwt-token>"
+  ```
+
+  * Ответ:
+
+    ```json
+    [
+      {
+        "id": 1,
+        "senderId": 1,
+        "senderName": "user1",
+        "receiverId": 2,
+        "receiverName": "user2",
+        "content": "Hello!",
+        "sentAt": "2025-06-02T10:00:00",
+        "isRead": false
+      },
+      ...
+    ]
+    ```
+
+Документация API доступна через Swagger UI по адресу `/swagger`.
+
+### SignalR (Чат)
+
+* Подключитесь к хабу `/chat` через WebSocket (требуется JWT-токен).
+
+  Пример подключения (JavaScript):
+
+  ```javascript
+  const connection = new signalR.HubConnectionBuilder()
+      .withUrl("http://localhost:5000/chat", { accessTokenFactory: () => "<jwt-token>" })
+      .build();
+  connection.start().then(() => console.log("Connected to chat hub"));
+  connection.on("ReceiveMessage", (message) => console.log("New message:", message));
+  ```
+
+## Структура проекта
+
+```
 Backend/
 ├── Config/
 │   └── JwtSettings.cs        # Настройки JWT
@@ -156,14 +228,19 @@ Backend/
 ├── Dockerfile                # Конфигурация Docker
 ├── docker-compose.yml        # Docker Compose
 └── README.md                 # Этот файл
+```
 
-Контрибьютинг
+## Контрибьютинг
 
-Сделайте форк репозитория.
-Создайте ветку (git checkout -b feature/ваша-фича).
-Внесите изменения (git commit -m "Добавлена фича").
-Запушьте (git push origin feature/ваша-фича).
-Откройте Pull Request.
+1. Сделайте форк репозитория.
+2. Создайте ветку (`git checkout -b feature/ваша-фича`).
+3. Внесите изменения (`git commit -m "Добавлена фича"`).
+4. Запушьте (`git push origin feature/ваша-фича`).
+5. Откройте Pull Request.
 
-Лицензия
+## Полезные ссылки
+[Frontend](https://github.com/fried-boiled-onions/authorisation-messenger-frontend)
+
+## Лицензия
+
 Проект распространяется под лицензией MIT. Подробности в файле LICENSE.
