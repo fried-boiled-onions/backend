@@ -39,7 +39,6 @@
    ```bash
    git clone https://github.com/fried-boiled-onions/backend.git
    cd backend
-   git checkout dev
    cd Backend
    ```
 
