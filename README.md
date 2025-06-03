@@ -98,7 +98,7 @@
    docker-compose up --build
    ```
 
-   * API будет доступен по адресу, указанному в `docker-compose.yml` (обычно `http://localhost:5000`).
+   * API будет доступен по адресу, указанному в `docker-compose.yml`
 
 ## Использование
 
