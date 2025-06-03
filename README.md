@@ -84,7 +84,7 @@
    dotnet run
    ```
 
-   * API будет доступен по адресу `https://localhost:5001` или `http://localhost:5000` (смотрите `Properties/launchSettings.json`). Документация API доступна по `/swagger`. SignalR хаб для чата — по `/chat`.
+   * API будет доступен по адресу `https://localhost:8080`.
 
 ## Запуск с Docker
 
