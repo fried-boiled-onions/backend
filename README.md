@@ -38,8 +38,7 @@
 
    ```bash
    git clone https://github.com/fried-boiled-onions/backend.git
-   cd backend
-   cd Backend
+   cd backend/Backend
    ```
 
 2. **Убедитесь, что установлен .NET SDK:**
