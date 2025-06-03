@@ -21,7 +21,6 @@
 * JWT-авторизация для защиты эндпоинтов.
 * Интеграция с PostgreSQL через Entity Framework Core.
 * Поддержка миграций базы данных.
-* Интерактивная документация API через Swagger UI.
 * Контейнеризация с Docker и Docker Compose.
 
 ## Технологии
@@ -31,7 +30,6 @@
 * SignalR: Для чата в реальном времени.
 * JWT: Для авторизации.
 * PostgreSQL: База данных.
-* Swashbuckle/Swagger: Для документации API.
 * Microsoft.Extensions.DependencyInjection: Для внедрения зависимостей.
 
 ## Установка
