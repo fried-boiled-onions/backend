@@ -109,7 +109,7 @@
 * **POST /api/auth/register** — регистрация пользователя.
 
   ```bash
-  curl -X POST "http://localhost:5000/api/auth/register" \
+  curl -X POST "http://localhost:8080/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{"username":"testuser","password":"Test123!"}'
   ```
@@ -149,7 +149,7 @@
 * **GET /api/messages/{userId}** — получить сообщения с пользователем (требуется JWT).
 
   ```bash
-  curl -X GET "http://localhost:5000/api/messages/2" \
+  curl -X GET "http://localhost:8080/api/messages/2" \
   -H "Authorization: Bearer <jwt-token>"
   ```
 
